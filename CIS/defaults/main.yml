@@ -383,7 +383,8 @@ nft_tables_autochaincreate: true
 
 # change to ho or dmz or drc or test
 environments: test
-
+motd_already_set: true
+banner_already_set: true
 # Warning Banner Content (issue, issue.net)
 cis_warning_banner: |
     
@@ -421,6 +422,7 @@ rsyslog_ansiblemanaged: true
 remote_log_server_dr: 10.103.67.42
 remote_log_server_ho: 10.100.67.42
 remote_log_server_test: 10.100.67.42
+rsyslog_already_set: true
 
 
 system_is_log_server: false

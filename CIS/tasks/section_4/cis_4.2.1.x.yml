@@ -155,7 +155,7 @@
       state: present
       block: |
         # remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
-        *.* @@{{ remote_log_server }}
+        *.* @@{{ remote_log_server_{{ environments }} }}
       insertafter: EOF
   register: result
   failed_when:
@@ -164,6 +164,7 @@
   notify: restart rsyslog
   when:
       - rule_4_2_1_6
+      - not rsyslog_already_set
       - remote_log_server is defined
   tags:
       - level1-server

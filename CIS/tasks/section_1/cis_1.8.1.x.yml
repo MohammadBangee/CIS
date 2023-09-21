@@ -9,6 +9,7 @@
       mode: 0644
   when:
       - rule_1_8_1
+      - not motd_already_set
   tags:
       - level1-server
       - level1-workstation
@@ -26,6 +27,7 @@
       mode: 0644
   when:
       - rule_1_8_1_3
+      - not banner_already_set
   tags:
       - level1-server
       - level1-workstation
