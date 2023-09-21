@@ -60,4 +60,5 @@
       - rule_1.1.28.2
       - rule_1.1.28.3
       - rule_1.1.28.4
+      - rule_1.1.28.5
       - skip_ansible_lint

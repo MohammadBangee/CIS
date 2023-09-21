@@ -201,21 +201,21 @@
       - rpc
       - rule_2.2.13
 
-- name: "2.2.8 | PATCH | Ensure LDAP Server is not installed"
+- name: "2.2.14 | PATCH | Ensure LDAP Server is not installed"
   package:
       name: openldap-servers
       state: absent
   when:
       - not openldap-servers
       - "'openldap-servers' in ansible_facts.packages"
-      - rule_2_2_8
+      - rule_2_2_14
   tags:
       - level1-server
       - level1-workstation
       - automated
       - patch
       - ldap
-      - rule_2.2.8
+      - rule_2.2.14
 
 - name: "2.2.15 | PATCH | Ensure DHCP Server is not installed"
   package:

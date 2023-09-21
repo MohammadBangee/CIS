@@ -14,8 +14,8 @@
   when:
       - firewall == "firewalld"
 
-- name: "SECTION | 3.4.2.x | Configure nftables"
-  import_tasks: cis_3.4.2.x.yml
+- name: "SECTION | 3.4.3.x | Configure nftables"
+  import_tasks: cis_3.4.3.x.yml
   when:
       - firewall == "nftables"
 

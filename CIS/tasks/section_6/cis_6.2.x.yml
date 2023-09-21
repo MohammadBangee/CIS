@@ -200,7 +200,7 @@
       - item.dir != '/dev/null'
       - rule_6_2_8
   tags:
-      - skip_ansible_lint  # settings found on 6_2_7
+      - skip_ansible_lint
       - level1-server
       - level1-workstation
       - automated

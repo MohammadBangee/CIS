@@ -11,6 +11,7 @@
       - ansible_distribution == "RedHat"
       - rhnsd_required
       - rule_1_2_1
+      - not already_subscribed
   tags:
       - level1-server
       - level1-workstation
@@ -36,10 +37,7 @@
   changed_when: false
   when:
       - rule_1_2_3
-      - ansible_distribution == "RedHat" or
-        ansible_distribution == "Rocky" or
-        ansible_distribution == "AlmaLinux" or
-        ansible_distribution == "OracleLinux"
+      - ansible_distribution == "RedHat"
   tags:
       - level1-server
       - level1-workstation
