@@ -1,0 +1,91 @@
+---
+
+- name: "3.3.1 | PATCH | Ensure DCCP is disabled"
+  block:
+      - name: "3.3.1 | PATCH | Ensure DCCP is disabled | CIS"
+        lineinfile:
+            path: /etc/modprobe.d/CIS.conf
+            regexp: "^(#)?install dccp(\\s|$)"
+            line: "install dccp /bin/true"
+            create: true
+            mode: 0600
+
+      - name: "3.3.1 | PATCH | Ensure DCCP is disabled | blacklist"
+        lineinfile:
+            path: /etc/modprobe.d/CIS.conf
+            regexp: "^(#)?blacklist dccp(\\s|$)"
+            line: "blacklist dccp"
+            create: true
+            mode: 0600
+  when:
+      - rule_3_3_1
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - dccp
+      - patch
+      - rule_3.3.1
+
+- name: "3.3.2 | PATCH | Ensure SCTP is disabled"
+  block:
+      - name: "3.3.2 | PATCH | Ensure SCTP is disabled | CIS"
+        lineinfile:
+            path: /etc/modprobe.d/CIS.conf
+            regexp: "^(#)?install sctp(\\s|$)"
+            line: "install sctp /bin/true"
+            create: true
+            mode: 0600
+
+      - name: "3.3.2 | PATCH | Ensure SCTP is disabled | blacklist"
+        lineinfile:
+            path: /etc/modprobe.d/blacklist.conf
+            regexp: "^(#)?blacklist sctp(\\s|$)"
+            line: "blacklist sctp"
+            create: true
+            mode: 0600
+  when:
+      - rule_3_3_2
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - sctp
+      - rule_3.3.2
+
+- name: "3.3.3 | PATCH | Ensure RDS is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install rds(\\s|$)"
+      line: "install rds /bin/true"
+      create: true
+      owner: root
+      group: root
+      mode: 0600
+  when:
+      - rule_3_3_3
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - rule_3.3.3
+
+- name: "3.3.4 | PATCH | Ensure TIPC is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install tipc(\\s|$)"
+      line: "install tipc /bin/true"
+      create: true
+      owner: root
+      group: root
+      mode: 0600
+  when:
+      - rule_3_3_4
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - rule_3.3.4

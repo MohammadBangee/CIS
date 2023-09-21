@@ -1,0 +1,135 @@
+---
+
+- name: "5.8.1 | PATCH | Ensure sudo is installed"
+  package:
+      name: sudo
+      state: present
+  when:
+      - rule_5_8_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.1
+
+- name: "5.8.2 | PATCH | Ensure sudo commands use pty"
+  lineinfile:
+      path: /etc/sudoers
+      line: "Defaults    use_pty"
+  when:
+      - rule_5_8_2
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.2
+
+- name: "5.8.3 | PATCH | Ensure sudo log file exists"
+  lineinfile:
+      path: /etc/sudoers
+      regexp: '^Defaults\s+logfile='
+      line: 'Defaults logfile={{ sudolog_location }}'
+  when:
+      - rule_5_8_3
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.3
+
+- name: "5.8.4 | PATCH | Ensure users must provide password for escalation"
+  replace:
+      path: "{{ item }}"
+      regexp: '^([^#|{% if system_is_ec2 %}ec2-user{% endif %}].*)NOPASSWD(.*)'
+      replace: '\1PASSWD\2'
+  with_items:
+      - "{{ sudoers_files.stdout_lines }}"
+  when:
+      - rule_5_8_4
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.4
+
+- name: "5.8.5 | PATCH | Ensure re-authentication for privilege escalation is not disabled globally"
+  replace:
+      path: "{{ item }}"
+      regexp: '^([^#].*)!authenticate(.*)'
+      replace: '\1authenticate\2'
+  with_items:
+      - "{{ sudoers_files.stdout_lines }}"
+  when:
+      - rule_5_8_5
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.5
+
+- name: "5.8.6 | PATCH | Ensure sudo authentication timeout is configured correctly"
+  block:
+      - name: "5.8.6 | AUDIT | Ensure sudo authentication timeout is configured correctly | Get files with timeout set"
+        shell: grep -is 'timestamp_timeout' /etc/sudoers /etc/sudoers.d/* | cut -d":" -f1 | uniq | sort
+        changed_when: false
+        failed_when: false
+        register: cis_5_8_6_timeout_files
+
+      - name: "5.8.6 | PATCH | Ensure sudo authentication timeout is configured correctly | Set value if no results"
+        lineinfile:
+            path: /etc/sudoers
+            regexp: 'Defaults timestamp_timeout='
+            line: "Defaults timestamp_timeout={{ sudo_timestamp_timeout }}"
+            validate: '/usr/sbin/visudo -cf %s'
+        when: cis_5_8_6_timeout_files.stdout | length == 0
+
+      - name: "5.8.6 | PATCH | Ensure sudo authentication timeout is configured correctly | Set value if has results"
+        replace:
+            path: "{{ item }}"
+            regexp: 'timestamp_timeout=(\d+)'
+            replace: "timestamp_timeout={{ sudo_timestamp_timeout }}"
+            validate: '/usr/sbin/visudo -cf %s'
+        with_items:
+            - "{{ cis_5_8_6_timeout_files.stdout_lines }}"
+        when: cis_5_8_6_timeout_files.stdout | length > 0
+  when:
+      - rule_5_8_6
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.6
+
+- name: "5.8.7 | PATCH | Ensure access to the su command is restricted"
+  block:
+      - name: "5.8.7 | PATCH | Ensure access to the su command is restricted | Setting pam_wheel to use_uid"
+        lineinfile:
+            path: /etc/pam.d/su
+            regexp: '^(#)?auth\s+required\s+pam_wheel\.so'
+            line: 'auth            required        pam_wheel.so use_uid {% if sugroup is defined %}group={{ sugroup }}{% endif %}'
+
+      - name: "5.8.7 | PATCH | Ensure access to the su command is restricted | wheel group contains root"
+        user:
+            name: "{{ sugroup_users }}"
+            groups: "{{ sugroup | default('wheel') }}"
+  when:
+      - rule_5_8_7
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - sudo
+      - rule_5.8.7

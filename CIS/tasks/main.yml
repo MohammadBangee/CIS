@@ -1,0 +1,184 @@
+---
+
+- name: Check OS version and family
+  assert:
+      that: (ansible_distribution != 'CentOS' and ansible_os_family == 'RedHat' or ansible_os_family == "Rocky") and ansible_distribution_major_version | version_compare('7', '==') or ansible_distribution_major_version | version_compare('9', '==')
+      fail_msg: "This role can only be run against Supported OSs. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
+      success_msg: "This role is running against a supported OS {{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+  when:
+      - os_check
+      - not system_is_ec2
+  tags:
+      - always
+
+- name: Check ansible version
+  assert:
+      that: ansible_version.full is version_compare(min_ansible_version, '>=')
+      fail_msg: "You must use Ansible {{ min_ansible_version }} or greater"
+      success_msg: "This role is running a supported version of ansible {{ ansible_version.full }} >= {{ min_ansible_version }}"
+  tags:
+      - always
+
+- name: Check crypto-policy input
+  assert:
+      that: crypto_policy in allowed_crypto_policies
+
+- name: Check bootloader_password_hash variable has been changed
+  assert:
+      that: bootloader_password_hash.find('grub.pbkdf2.sha512') != -1 and bootloader_password_hash != 'grub.pbkdf2.sha512.changethispassword'
+      msg: "This role will not be able to run single user password commands as bootloader_password_hash variable has not been set correctly"
+  when:
+      - set_boot_pass
+      - rule_1_4_1
+  tags:
+      - always
+
+- name: "Check password set for {{ ansible_user }}"
+  block:
+      - name: Capture current password state of "{{ ansible_user }}"
+        shell: "grep {{ ansible_user }} /etc/shadow | awk -F: '{print $2}'"
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: ansible_user_password_set
+
+      - name: "Assert that password set for {{ ansible_user }} and account not locked"
+        assert:
+            that: ansible_user_password_set.stdout | length != 0 and ansible_user_password_set.stdout != "!!"
+            fail_msg: "You have {{ sudo_password_rule }} enabled but the user = {{ ansible_user }} has no password set - It can break access"
+            success_msg: "You a password set for the {{ ansible_user }}"
+        vars:
+            sudo_password_rule: rule_5_3_4
+  when:
+      - rule_5_3_4
+      - not system_is_ec2
+  tags:
+      - user_passwd
+
+- name: Setup rules if container
+  block:
+      - name: Discover and set container variable if required
+        set_fact:
+            system_is_container: true
+
+      - name: Load variable for container
+        include_vars:
+            file: "{{ container_vars_file }}"
+
+      - name: output if discovered is a container
+        debug:
+            msg: system has been discovered as a container
+        when:
+            - system_is_container
+  when:
+      - ansible_connection == 'docker' or
+        ansible_virtualization_type in ["docker", "lxc", "openvz", "podman", "container"]
+  tags:
+      - container_discovery
+      - always
+
+- name: "check sugroup exists if used"
+  block:
+      - name: "Check su group exists if defined"
+        shell: grep -w "{{ sugroup }}" /etc/group
+        register: sugroup_exists
+        changed_when: false
+        failed_when: sugroup_exists.rc >= 2
+        tags:
+            - skip_ansible_lint
+
+      - name: Check sugroup if defined exists before continuing
+        assert:
+            that: sugroup_exists.rc == 0
+            msg: "The variable sugroup is defined but does not exist please rectify"
+  when:
+      - sugroup is defined
+      - rule_5_7
+  tags:
+      - rule_5.7
+
+- name: Include preliminary steps
+  import_tasks: prelim.yml
+  tags:
+      - prelim_tasks
+      - always
+
+- name: Gather the package facts after prelim
+  package_facts:
+      manager: auto
+  tags:
+      - always
+
+- name: Include OS specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+  tags:
+      - always
+
+- name: capture /etc/password variables
+  import_tasks: parse_etc_password.yml
+  when:
+      - section5 or
+        section6
+  tags:
+      - always
+
+- name: run Section 1 tasks
+  import_tasks: section_1/main.yml
+  when:
+      - section1
+  tags:
+      - section1
+
+- name: run Section 2 tasks
+  import_tasks: section_2/main.yml
+  when:
+      - section2
+  tags:
+      - section2
+
+- name: run Section 3 tasks
+  import_tasks: section_3/main.yml
+  when:
+      - section3
+  tags:
+      - section3
+
+- name: run Section 4 tasks
+  import_tasks: section_4/main.yml
+  when:
+      - section4
+  tags:
+      - section4
+
+- name: run Section 5 tasks
+  import_tasks: section_5/main.yml
+  when:
+      - section5
+  tags:
+      - section5
+
+- name: run Section 6 tasks
+  import_tasks: section_6/main.yml
+  when:
+      - section6
+  tags:
+      - section6
+
+- name: run auditd logic
+  import_tasks: auditd.yml
+  when:
+      - update_audit_template
+  tags:
+      - always
+
+- name: run post remediation tasks
+  import_tasks: post.yml
+  tags:
+      - post_tasks
+      - always
+
+- name: Output Warning count and control IDs affected
+  debug:
+      msg: "You have {{ warn_count }} warning(s) that require investigating that are related to the following benchmark ID(s) {{ warn_control_list }}"
+  tags:
+      - always

@@ -1,0 +1,43 @@
+---
+
+# Skips if mount is absent
+- name: |
+         "1.1.29.1 | PATCH | Ensure nodev option set on /dev/shm partition
+          1.1.29.2 | PATCH | Ensure nosuid option set on /dev/shm partition
+          1.1.29.3 | PATCH | Ensure noexec option set on /dev/shm partition"
+  block:
+      - name: |
+         "1.1.29.1 | AUDIT | Ensure nodev option set on /dev/shm partition | Check for /dev/shm existence
+          1.1.29.2 | AUDIT | Ensure nosuid option set on /dev/shm partition | Check for /dev/shm existence
+          1.1.29.3 | AUDIT | Ensure noexec option set on /dev/shm partition | Check for /dev/shm existence"
+        shell: mount -l | grep -E '\s/dev/shm\s'
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: cis_1_1_29_x_dev_shm_status
+
+      - name: |
+              "1.1.29.1 | PATCH | Ensure nodev option set on /dev/shm partition | Set nodev option
+               1.1.29.2 | PATCH | Ensure noexec option set on /dev/shm partition | Set nosuid option
+               1.1.29.3 | PATCH | Ensure nosuid option set on /dev/shm partition | Set noexec option"
+        mount:
+            name: /dev/shm
+            src: tmpfs
+            fstype: tmpfs
+            state: mounted
+            opts: defaults,{% if rule_1_1_29_2 %}noexec,{% endif %}{% if rule_1_1_29_1 %}nodev,{% endif %}{% if rule_1_1_29_3 %}nosuid{% endif %}
+        when: "'dev/shm' in cis_1_1_29_x_dev_shm_status.stdout"
+        notify: change_requires_reboot
+  when:
+      - rule_1_1_29_1 or
+        rule_1_1_29_2 or
+        rule_1_1_29_3
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - mounts
+      - rule_1.1.29.1
+      - rule_1.1.29.2
+      - rule_1.1.29.3

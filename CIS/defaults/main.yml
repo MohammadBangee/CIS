@@ -1,0 +1,539 @@
+---
+
+system_is_container: false
+container_vars_file: is_container.yml
+
+os_check: true
+system_is_ec2: false
+
+section1: true
+section2: true
+section3: true
+section4: true
+section5: true
+section6: true
+
+level_1: true
+level_2: true
+
+selinux_disable: false
+legacy_boot: false
+
+python2_bin: /bin/python2.7
+
+skip_reboot: true
+
+# Section 1 rules
+rule_1_1_1_1: true
+rule_1_1_1_2: false
+rule_1_1_1_3: false
+rule_1_1_2_1: true
+rule_1_1_2_2: true
+rule_1_1_2_3: true
+rule_1_1_2_4: true
+rule_1_1_3_1: true
+rule_1_1_3_2: true
+rule_1_1_3_3: true
+rule_1_1_3_4: true
+rule_1_1_4_1: true
+rule_1_1_4_2: true
+rule_1_1_4_3: true
+rule_1_1_4_4: true
+rule_1_1_5_1: true
+rule_1_1_5_2: true
+rule_1_1_5_3: true
+rule_1_1_5_4: true
+rule_1_1_6_1: true
+rule_1_1_6_2: true
+rule_1_1_6_3: true
+rule_1_1_6_4: true
+rule_1_1_7_1: true
+rule_1_1_7_2: true
+rule_1_1_7_3: true
+rule_1_1_7_4: true
+rule_1_1_7_5: true
+rule_1_1_8_1: true
+rule_1_1_8_2: true
+rule_1_1_8_3: true
+rule_1_1_18: true
+rule_1_1_19: true
+rule_1_1_20: true
+rule_1_1_21: true
+rule_1_1_9: true
+rule_1_1_10: true
+rule_1_2_1: true
+rule_1_2_2: true
+rule_1_2_3: true
+rule_1_2_4: true
+rule_1_3_1: true
+rule_1_3_2: true
+rule_1_4_1: false
+rule_1_4_2: true
+rule_1_4_3: true
+rule_1_5_1: true
+rule_1_5_2: true
+rule_1_5_3: true
+rule_1_6_1: true
+rule_1_6_2: true
+rule_1_6_1_1: true
+rule_1_6_1_2: true
+rule_1_6_1_3: true
+rule_1_6_1_4: true
+rule_1_6_1_5: true
+rule_1_6_1_6: true
+rule_1_6_1_7: true
+rule_1_6_1_8: true
+rule_1_7_1: true
+rule_1_7_2: true
+rule_1_7_3: true
+rule_1_7_4: true
+rule_1_7_5: true
+rule_1_7_6: true
+rule_1_8_1: true
+rule_1_8_2: false
+rule_1_8_3: true
+rule_1_8_4: true
+rule_1_8_5: true
+rule_1_9: true
+rule_1_10: true
+rule_1_11: true
+
+# Section 2 rules
+rule_2_1_1: true
+rule_2_1_2: true
+rule_2_2_1: true
+rule_2_2_2: true
+rule_2_2_3: true
+rule_2_2_4: true
+rule_2_2_5: true
+rule_2_2_6: true
+rule_2_2_7: true
+rule_2_2_8: true
+rule_2_2_9: true
+rule_2_2_10: true
+rule_2_2_11: true
+rule_2_2_12: true
+rule_2_2_13: true
+rule_2_2_14: true
+rule_2_2_15: true
+rule_2_2_16: true
+rule_2_2_17: true
+rule_2_2_18: true
+rule_2_2_19: true
+rule_2_2_20: true
+rule_2_3_1: true
+rule_2_3_2: true
+rule_2_3_3: true
+rule_2_3_4: true
+rule_2_3_5: true
+rule_2_3_6: true
+rule_2_4: true
+
+# Section 3 rules
+rule_3_1_1: true
+rule_3_1_2: false
+rule_3_1_3: false
+rule_3_1_4: true
+rule_3_2_1: true
+rule_3_2_2: true
+rule_3_3_1: true
+rule_3_3_2: true
+rule_3_3_3: true
+rule_3_3_4: true
+rule_3_3_5: true
+rule_3_3_6: true
+rule_3_3_7: true
+rule_3_3_8: true
+rule_3_3_9: true
+rule_3_4_1_1: true
+rule_3_4_1_2: true
+rule_3_4_1_3: true
+rule_3_4_1_4: true
+rule_3_4_1_5: true
+rule_3_4_1_6: true
+rule_3_4_1_7: true
+rule_3_4_2_1: true
+rule_3_4_2_2: true
+rule_3_4_2_3: true
+rule_3_4_2_4: true
+rule_3_4_2_5: true
+rule_3_4_2_6: true
+rule_3_4_2_7: true
+rule_3_4_2_8: true
+rule_3_4_2_9: true
+rule_3_4_2_10: true
+rule_3_4_2_11: true
+rule_3_4_3_1_1: true
+rule_3_4_3_1_2: true
+rule_3_4_3_1_3: true
+rule_3_4_3_2_1: true
+rule_3_4_3_2_2: true
+rule_3_4_3_2_3: true
+rule_3_4_3_2_4: true
+rule_3_4_3_2_5: true
+rule_3_4_3_2_6: true
+rule_3_4_3_3_1: true
+rule_3_4_3_3_2: true
+rule_3_4_3_3_3: true
+rule_3_4_3_3_4: true
+rule_3_4_3_3_5: true
+rule_3_4_3_3_6: true
+
+# Section 4 rules
+rule_4_1_1_1: false
+rule_4_1_1_2: false
+rule_4_1_1_3: false
+rule_4_1_1_4: false
+rule_4_1_2_1: false
+rule_4_1_2_2: false
+rule_4_1_2_3: false
+rule_4_1_3_1: false
+rule_4_1_3_2: false
+rule_4_1_3_3: false
+rule_4_1_3_4: false
+rule_4_1_3_5: false
+rule_4_1_3_6: false
+rule_4_1_3_7: false
+rule_4_1_3_8: false
+rule_4_1_3_9: false
+rule_4_1_3_10: false
+rule_4_1_3_11: false
+rule_4_1_3_12: false
+rule_4_1_3_13: false
+rule_4_1_3_14: false
+rule_4_1_3_15: false
+rule_4_1_3_16: false
+rule_4_1_3_17: false
+rule_4_1_3_18: false
+rule_4_1_3_19: false
+rule_4_1_3_20: false
+rule_4_1_3_21: false
+rule_4_2_1_1: true
+rule_4_2_1_2: true
+rule_4_2_1_3: false
+rule_4_2_1_4: true
+rule_4_2_1_5: true
+rule_4_2_1_6: true
+rule_4_2_1_7: true
+rule_4_2_2_1_1: false
+rule_4_2_2_1_2: false
+rule_4_2_2_1_3: false
+rule_4_2_2_1_4: false
+rule_4_2_2_2: false
+rule_4_2_2_3: false
+rule_4_2_2_4: false
+rule_4_2_2_5: false
+rule_4_2_2_6: false
+rule_4_2_2_7: false
+rule_4_2_3: false
+rule_4_3: false
+
+# Section 5 rules
+rule_5_1_1: true
+rule_5_1_2: true
+rule_5_1_3: true
+rule_5_1_4: true
+rule_5_1_5: true
+rule_5_1_6: true
+rule_5_1_7: true
+rule_5_1_8: true
+rule_5_1_9: true
+rule_5_2_1: true
+rule_5_2_2: true
+rule_5_2_3: true
+rule_5_2_4: true
+rule_5_2_5: true
+rule_5_2_6: true
+rule_5_2_7: false
+rule_5_2_8: true
+rule_5_2_9: true
+rule_5_2_10: true
+rule_5_2_11: true
+rule_5_2_12: false
+rule_5_2_13: false
+rule_5_2_14: true
+rule_5_2_15: true
+rule_5_2_16: true
+rule_5_2_17: true
+rule_5_2_18: true
+rule_5_2_19: true
+rule_5_2_20: true
+rule_5_3_1: true
+rule_5_3_2: true
+rule_5_3_3: true
+rule_5_3_4: false
+rule_5_3_5: true
+rule_5_3_6: true
+rule_5_3_7: true
+rule_5_4_1: true
+rule_5_4_2: true
+rule_5_5_1: true
+rule_5_5_2: true
+rule_5_5_3: true
+rule_5_5_4: true
+rule_5_5_5: true
+rule_5_6_1_1: true
+rule_5_6_1_2: true
+rule_5_6_1_3: true
+rule_5_6_1_4: true
+rule_5_6_1_5: true
+rule_5_6_2: true
+rule_5_6_3: true
+rule_5_6_4: true
+rule_5_6_5: true
+
+# Section 6 rules
+rule_6_1_1: false
+rule_6_1_2: true
+rule_6_1_3: true
+rule_6_1_4: true
+rule_6_1_5: true
+rule_6_1_6: true
+rule_6_1_7: true
+rule_6_1_8: true
+rule_6_1_9: true
+rule_6_1_10: true
+rule_6_1_11: true
+rule_6_1_12: true
+rule_6_1_13: true
+rule_6_1_14: false
+rule_6_1_15: false
+rule_6_2_1: true
+rule_6_2_2: true
+rule_6_2_3: true
+rule_6_2_4: true
+rule_6_2_5: true
+rule_6_2_6: true
+rule_6_2_7: true
+rule_6_2_8: false
+rule_6_2_9: true
+rule_6_2_10: true
+rule_6_2_11: true
+rule_6_2_12: true
+rule_6_2_13: true
+rule_6_2_14: true
+rule_6_2_15: true
+rule_6_2_16: true
+
+# Server Services
+avahi_server: false
+bind: false
+cups_server: false
+dhcp_server: false
+dns_server: false
+dovecot_cyrus_server: false
+ftp_server: false
+httpd_server: false
+is_mail_server: false
+net_snmp_server: false
+nfs_server: false
+nginx_server: false
+nis_server: false
+rpc_server: false
+rsync_server: false
+samba_server: false
+squid_server: false
+telnet_server: false
+tftp_server: false
+vsftpd_server: false
+xinetd_server: false
+
+# Client Services
+
+ypbind_required: false
+rsh_required: false
+talk_required: false
+telnet_required: false
+openldap_clients_required: false
+tftp_client: false
+
+allow_autofs: false
+
+## Section 1 vars
+
+tmp_svc: false
+
+rh_sub_user: user
+rh_sub_password: password
+
+rhnsd_required: false
+
+xinetd_required: false
+
+bootloader_password_hash: 'grub.pbkdf2.sha512.changethispassword'
+bootloader_password: random
+set_boot_pass: false
+
+crypto_policy: "FUTURE"
+
+is_router: false
+
+ipv6_required: false
+
+config_aide: true
+aide_cron:
+    cron_user: root
+    cron_file: /etc/cron.d/cis_aide
+    aide_job: '/usr/sbin/aide --check'
+    aide_minute: 0
+    aide_hour: 5
+    aide_day: '*'
+    aide_month: '*'
+    aide_weekday: '*'
+
+selinux_pol: targeted
+
+gui: false
+
+xwindows_required: true
+
+time_synchronization: chrony
+
+time_synchronization_servers:
+    - 172.20.11.22 
+    - 172.20.11.23
+    - 172.16.11.1
+    - 172.16.11.2
+
+
+
+chrony_server_options: "iburst"
+
+## Section3 vars
+host_allow:
+    - "10.0.0.0/255.0.0.0"
+    - "172.16.0.0/255.240.0.0"
+    - "192.168.0.0/255.255.0.0"
+
+firewall: firewalld
+
+default_zone: public
+
+int_zone: customezone
+interface: eth0
+
+firewall_services:
+    - cockpit
+    - dhcpv6-client
+    - ssh
+
+nft_tables_autonewtable: true
+nft_tables_tablename: filter
+
+nft_tables_autochaincreate: true
+
+# Warning Banner Content (issue, issue.net, motd)
+warning_banner: |
+    Authorized uses only. All activity may be monitored and reported.
+# End Banner
+
+## Section4 vars
+
+update_audit_template: false
+
+auditd:
+    space_left_action: email
+    action_mail_acct: root
+    admin_space_left_action: halt
+    max_log_file_action: keep_logs
+
+auditd_extra_conf: {}
+
+logrotate: "daily"
+
+audit_back_log_limit: 8192
+
+max_log_file_size: 10
+
+syslog: rsyslog
+rsyslog_ansiblemanaged: true
+
+remote_log_server: logagg.example.com
+
+system_is_log_server: false
+
+#journal_upload_url: 192.168.50.42
+#journal_upload_serverkeyfile: "/etc/ssl/private/journal-upload.pem"
+#journal_servercertificatefile: "/etc/ssl/certs/journal-upload.pem"
+#journal_trustedcertificatefile: "/etc/ssl/ca/trusted.pem"
+
+#
+journald_systemmaxuse: 10M
+# journald_systemkeepfree is the amount of disk space to keep free
+journald_systemkeepfree: 100G
+journald_runtimemaxuse: 10M
+journald_runtimekeepfree: 100G
+# journald_MaxFileSec is how long in time to keep log files. Values are Xm, Xh, Xday, Xweek, Xmonth, Xyear, for example 2week is two weeks
+journald_maxfilesec: 1month
+
+allow_logrotate_conf_umask_updates: false
+
+## Section5 vars
+
+sshd:
+    clientalivecountmax: 0
+    clientaliveinterval: 900
+    logingracetime: 900
+    # WARNING: make sure you understand the precedence when working with these values!!
+    # allowusers:
+    # allowgroups: systems dba
+    # denyusers:
+    # denygroups:
+pam_faillock:
+    attempts: 5
+    interval: 900
+    unlock_time: 900
+    fail_for_root: 'no'
+    remember: 5
+    pwhash: sha512
+
+ssh_loglevel: INFO
+
+ssh_maxsessions: 10
+
+authselect_custom_profile_create: false
+
+sudolog_location: "/var/log/sudo.log"
+
+sudo_timestamp_timeout: 15
+
+
+sugroup_users: "root"
+
+use_authconfig: false
+authselect:
+    custom_profile_name: custom-profile
+    default_file_to_copy: "sssd --symlink-meta"
+    options: with-sudo with-faillock without-nullok
+
+pass:
+    max_days: 365
+    min_days: 7
+    warn_age: 7
+
+inactivelock:
+    lock_days: 30
+
+futurepwchgdate_autofix: true
+
+pam_password:
+    minlen: 14
+    minclass: 4
+
+uid_info_dynamic: true
+
+shell_session_timeout:
+    file: /etc/profile.d/tmout.sh
+    timeout: 600
+
+## Section6 vars
+
+rpm_audit_file: /var/tmp/rpm_file_check
+
+no_world_write_adjust: true
+passwd_label: "{{ (this_item | default(item)).id }}: {{ (this_item | default(item)).dir }}"
+
+
+6_2_9_follow_home_symlinks: false
+
+dotperm_ansiblemanaged: true

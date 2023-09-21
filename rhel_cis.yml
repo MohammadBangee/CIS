@@ -1,0 +1,6 @@
+---
+
+- name: RHEL Server Hardening
+  hosts: all
+  roles:
+    - role: "CIS"

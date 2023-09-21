@@ -1,0 +1,115 @@
+---
+
+- name: "5.4.1 | PATCH | Ensure password creation requirements are configured"
+  block:
+      - name: "5.4.1 | PATCH | Ensure password creation requirements are configured | Set pwquality config settings"
+        lineinfile:
+            path: /etc/security/pwquality.conf
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+        with_items:
+            - { regexp: '^minlen', line: 'minlen = {{ pam_password.minlen }}' }
+            - { regexp: '^minclass', line: 'minclass = {{ pam_password.minclass }}' }
+
+      - name: "5.4.1 | PATCH | Ensure password creation requirements are configured | Set system-auth and password-auth retry settings"
+        lineinfile:
+            path: "{{ item }}"
+            state: present
+            regexp: '^password\s*requisite\s*pam_pwquality.so'
+            line: "password    requisite                                    pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
+            insertbefore: '^#?password ?'
+        with_items:
+            - /etc/pam.d/system-auth
+            - /etc/pam.d/password-auth
+  when:
+      - rule_5_4_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - patch
+      - rule_5.4.1
+
+- name: "5.4.2 | PATCH | Ensure lockout for failed password attempts is configured"
+  block:
+      - name: "5.4.2 | PATCH | Ensure lockout for failed password attempts is configured | Add deny count and unlock time for preauth"
+        lineinfile:
+            path: /etc/pam.d/{{ item }}
+            state: present
+            regexp: '^auth\s*required\s*pam_faillock.so preauth'
+            line: "auth        required                                     pam_faillock.so preauth silent deny={{ pam_faillock.attempts }}{{ (pam_faillock.fail_for_root) | ternary(' even_deny_root ',' ') }}unlock_time={{ pam_faillock.unlock_time }}"
+            insertafter: '^#?auth ?'
+        with_items:
+            - "system-auth"
+            - "password-auth"
+        when: ansible_distribution_version <= "8.1"
+
+      - name: "5.4.2 | PATCH | Ensure lockout for failed password attempts is configured | Add deny count and unlock times for authfail"
+        lineinfile:
+            dest: /etc/pam.d/{{ item }}
+            state: present
+            regexp: '^auth\s*required\s*pam_faillock.so authfail'
+            line: "auth        required                                     pam_faillock.so authfail deny={{ pam_faillock.attempts }}{{ (pam_faillock.fail_for_root) | ternary(' even_deny_root ',' ') }}unlock_time={{ pam_faillock.unlock_time }}"
+            insertafter: '^#?auth ?'
+        with_items:
+            - "system-auth"
+            - "password-auth"
+        when: ansible_distribution_version <= "8.1"
+
+      - name: "5.4.2 | PATCH | Ensure lockout for failed password attempts is configured"
+        lineinfile:
+            path: /etc/security/faillock.conf
+            state: present
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+        with_items:
+            - { regexp: '^\s*deny\s*=\s*[1-5]\b', line: 'deny = 5' }
+            - { regexp: '^\s*unlock_time\s*=\s*(0|9[0-9][0-9]|[1-9][0-9][0-9][0-9]+)\b', line: 'unlock_time = 900' }
+        when: ansible_distribution_version >= "8.2"
+  when:
+      - rule_5_4_2
+  tags:
+      - level1-server
+      - level1-workstation
+      - patch
+      - rule_5.4.2
+
+- name: "5.4.3 | PATCH | Ensure password reuse is limited"
+  lineinfile:
+      path: /etc/pam.d/system-auth
+      state: present
+      line: "password    requisite                                    pam_pwhistory.so try_first_pass local_users_only enforce_for_root retry=3 remember={{ pam_faillock.remember }}"
+      insertafter: '^password\s*requisite\s*pam_pwquality.so'
+  when:
+      - rule_5_4_3
+  tags:
+      - level1-server
+      - level1-workstation
+      - patch
+      - rule_5.4.3
+
+- name: "5.4.4 | PATCH | Ensure password hashing algorithm is SHA-512"
+  block:
+      - name: "5.4.4 | PATCH | Ensure password hashing algorithm is SHA-512 | libuser.conf"
+        replace:
+            path: "{{ item.path }}"
+            regexp: "{{ item.regexp }}"
+            replace: "{{ item.replace }}"
+        with_items:
+            - { path: /etc/libuser.conf, regexp: '^crypt_style\s*=\s*.*$', replace: 'crypt_style = sha512' }
+            - { path: /etc/login.defs, regexp: '^ENCRYPT_METHOD.*', replace: 'ENCRYPT_METHOD SHA512' }
+
+      - name: "5.4.4 | PATCH | Ensure password reuse is limited | pwhistory"
+        replace:
+            path: "{{ item }}"
+            regexp: '^password\s*sufficient\s*pam_unix.so.*$'
+            replace: 'password    sufficient                                   pam_unix.so sha512 shadow try_first_pass use_authtok remember={{ pam_faillock.remember }}'
+        with_items:
+            - /etc/pam.d/password-auth
+            - /etc/pam.d/system-auth
+  when:
+      - rule_5_4_4
+  tags:
+      - level1-server
+      - level1-workstation
+      - patch
+      - rule_5.4.4

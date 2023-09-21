@@ -1,0 +1,130 @@
+---
+
+- name: "5.5.1.1 | PATCH | Ensure password expiration is 365 days or less"
+  lineinfile:
+      path: /etc/login.defs
+      regexp: '^PASS_MAX_DAYS'
+      line: "PASS_MAX_DAYS {{ pass['max_days'] }}"
+  when:
+      - rule_5_5_1_1
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - password
+      - rule_5.5.1.1
+
+- name: "5.5.1.2 | PATCH | Ensure minimum days between password changes is 7 or more"
+  lineinfile:
+      path: /etc/login.defs
+      regexp: '^PASS_MIN_DAYS'
+      line: "PASS_MIN_DAYS {{ pass['min_days'] }}"
+  when:
+      - rule_5_5_1_2
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - password
+      - rule_5.5.1.2
+
+- name: "5.5.1.3 | PATCH | Ensure password expiration warning days is 7 or more"
+  lineinfile:
+      path: /etc/login.defs
+      regexp: '^PASS_WARN_AGE'
+      line: "PASS_WARN_AGE {{ pass['warn_age'] }}"
+  when:
+      - rule_5_5_1_3
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - password
+      - rule_5.5.1.3
+
+- name: "5.5.1.4 | PATCH | Ensure inactive password lock is 30 days or less"
+  block:
+      - name: "5.5.1.4 | AUDIT | Ensure inactive password lock is 30 days or less | Check current settings"
+        shell: useradd -D | grep INACTIVE={{ inactivelock.lock_days }} | cut -f2 -d=
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: cis_5_5_1_4_inactive_settings
+
+      - name: "5.5.1.4 | PATCH | Ensure inactive password lock is 30 days or less | Set default inactive setting"
+        command: useradd -D -f {{ inactivelock.lock_days }}
+        when: cis_5_5_1_4_inactive_settings.stdout | length == 0
+
+      - name: "5.5.1.4 | AUDIT | Ensure inactive password lock is 30 days or less | Getting user list"
+        shell: "awk -F: '/^[^#:]+:[^\\!\\*:]*:[^:]*:[^:]*:[^:]*:[^:]*:(\\s*|-1|3[1-9]|[4-9][0-9]|[1-9][0-9][0-9]+):[^:]*:[^:]*\\s*$/ {print $1}' /etc/shadow"
+        changed_when: false
+        check_mode: false
+        register: cis_5_5_1_4_user_list
+
+      - name: "5.5.1.4 | PATCH | Ensure inactive password lock is 30 days or less | Apply Inactive setting to existing accounts"
+        command: "chage --inactive {{ inactivelock.lock_days }} {{ item }}"
+        with_items:
+            - "{{ cis_5_5_1_4_user_list.stdout_lines }}"
+  when:
+      - rule_5_5_1_4
+  tags:
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - password
+      - rule_5.5.1.4
+
+- name: "5.5.1.5 |  PATCH | Ensure all users last password change date is in the past"
+  block:
+      - name: "5.5.1.5 | AUDIT | Ensure all users last password change date is in the past | Get current date in Unix Time"
+        shell: echo $(($(date --utc --date "$1" +%s)/86400))
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: cis_5_5_1_5_currentut
+
+      - name: "5.5.1.5 | AUDIT | Ensure all users last password change date is in the past | Get list of users with last changed pw date in the future"
+        shell: "cat /etc/shadow | awk -F: '{if($3>{{ cis_5_5_1_5_currentut.stdout }})print$1}'"
+        changed_when: false
+        failed_when: false
+        check_mode: false
+        register: cis_5_5_1_5_user_list
+
+      - name: "5.5.1.5 | AUDIT | Ensure all users last password change date is in the past | Alert no pw change in the future exist"
+        debug:
+            msg: "Good News! All accounts have PW change dates that are in the past"
+        when: cis_5_5_1_5_user_list.stdout | length == 0
+
+      - name: "5.5.1.5 | AUDIT | Ensure all users last password change date is in the past | Alert on accounts with pw change in the future"
+        debug:
+            msg: "Warning!! The following accounts have the last PW change date in the future: {{ cis_5_5_1_5_user_list.stdout_lines }}"
+        when:
+            - cis_5_5_1_5_user_list.stdout | length > 0
+            - not futurepwchgdate_autofix
+
+      - name: "5.5.1.5 | AUDIT | Ensure all users last password change date is in the past| Warn Count"
+        ansible.builtin.import_tasks: warning_facts.yml
+        vars:
+            warn_control_id: '5.5.1.5'
+        when:
+            - cis_5_5_1_5_user_list.stdout | length > 0
+            - not futurepwchgdate_autofix
+
+      - name: "5.5.1.5 | PATCH | Ensure all users last password change date is in the past | Fix accounts with pw change in the future"
+        command: passwd --expire {{ item }}
+        when:
+            - cis_5_5_1_5_user_list | length > 0
+            - futurepwchgdate_autofix
+        with_items:
+            - "{{ cis_5_5_1_5_user_list.stdout_lines }}"
+  when:
+      - rule_5_5_1_5
+  tags:
+      - level1-server
+      - level1-workstation
+      - patch
+      - rule_5.5.1.5

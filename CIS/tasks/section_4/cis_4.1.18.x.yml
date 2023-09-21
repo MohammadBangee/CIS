@@ -1,0 +1,290 @@
+---
+
+- name: "4.1.18.1 | PATCH | Ensure changes to system administration scope (sudoers) is collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_1
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.1
+
+- name: "4.1.18.2 | PATCH | Ensure actions as another user are always logged"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_2
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.2
+
+- name: "4.1.18.3 | PATCH | Ensure events that modify the sudo log file are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_3
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.3
+
+- name: "4.1.18.4 | PATCH | Ensure events that modify date and time information are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_4
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.4
+
+- name: "4.1.18.5 | PATCH | Ensure events that modify the system's network environment are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_5
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.5
+
+- name: "4.1.18.6 | PATCH | Ensure use of privileged commands is collected"
+  block:
+      - name: "4.1.18.6 | PATCH | Ensure use of privileged commands is collected"
+        shell: for i in  $(df | grep '^/dev' | awk '{ print $NF }'); do find $i -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null; done
+        changed_when: false
+        check_mode: false
+        register: priv_procs
+
+      - name: "4.1.18.6 | PATCH | Ensure use of privileged commands is collected"
+        set_fact:
+            update_audit_template: true
+        notify: update auditd
+  when:
+      - rule_4_1_18_6
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.6
+
+- name: "4.1.18.7 | PATCH | Ensure unsuccessful file access attempts are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_7
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18_7
+
+- name: "4.1.18.8 | PATCH | Ensure events that modify user/group information are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_8
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.8
+
+- name: "4.1.18.9 | PATCH | Ensure discretionary access control permission modification events are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_9
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.9
+
+- name: "4.1.18.10 | PATCH | Ensure successful file system mounts are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_10
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.10
+
+- name: "4.1.18.11 | PATCH | Ensure session initiation information is collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_11
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.11
+
+- name: "4.1.18.12 | PATCH | Ensure login and logout events are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_12
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.12
+
+- name: "4.1.18.13 | PATCH | Ensure file deletion events by users are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_13
+  tags:
+      - level2-server
+      - level2-workstation
+      - auditd
+      - patch
+      - rule_4.1.18.13
+
+- name: "4.1.18.14 | PATCH | Ensure events that modify the system's Mandatory Access Controls are collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_14
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.14
+
+- name: "4.1.18.15 | PATCH | Ensure successful and unsuccessful attempts to use the chcon command are recorded"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_15
+  tags:
+      - level2-server
+      - level2- workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.15
+
+- name: "4.1.18.16 | PATCH | Ensure successful and unsuccessful attempts to use the setfacl command are recorded"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_16
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.16
+
+- name: "4.1.18.17 | PATCH | Ensure successful and unsuccessful attempts to use the chacl command are recorded"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_17
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.17
+
+- name: "4.1.18.18 | PATCH | Ensure successful and unsuccessful attempts to use the usermod command are recorded"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_18
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.18
+
+- name: "4.1.18.19 | PATCH | Ensure kernel module loading unloading and modification is collected"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_19
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.18.19
+
+- name: "4.1.18.20 | PATCH | Ensure the audit configuration is immutable"
+  set_fact:
+      update_audit_template: true
+  when:
+      - rule_4_1_18_20
+  tags:
+      - level2-server
+      - level2-workstation
+      - automated
+      - patch
+      - auditd
+      - rule_4.1.20
+
+- name: "4.1.18.21 | AUDIT | Ensure the running and on disk configuration is the same"
+  debug:
+      msg:
+          - "Please run augenrules --load if you suspect there is a configuration that is not active"
+  when:
+      - rule_4_1_18_21
+  tags:
+      - level2-server
+      - level2-workstation
+      - manual
+      - patch
+      - auditd
+      - rule_4.1.18.21
+
+- name: Auditd | 4.1.18 | Auditd controls updated
+  debug:
+      msg: "Auditd Controls handled in POST using template - updating /etc/auditd/rules.d/99_auditd.rules"
+  changed_when: false
+  when:
+      - update_audit_template

@@ -1,0 +1,95 @@
+---
+
+- name: |
+      "1.1.18 | PATCH | Ensure noexec option set on removable media partitions"
+      "1.1.19 | PATCH | Ensure nodev option set on removable media partitions"
+      "1.1.20 | PATCH | Ensure nosuid option set on removable media partitions"
+  mount:
+      name: /mnt
+      src: "{{ item.device }}"
+      fstype: "{{ item.fstype }}"
+      state: present
+      opts: defaults,{% if rule_1_1_18 %}noexec,{% endif %}{% if rule_1_1_19 %}nodev,{% endif %}{% if rule_1_1_20 %}nosuid{% endif %}
+  loop: "{{ ansible_mounts }}"
+  loop_control:
+      label: "{{ item.mount }}"
+  when:
+      - rule_1_1_18 or
+        rule_1_1_19 or
+        rule_1_1_20
+  tags:
+      - level1-server
+      - level1-workstation
+      - audit
+      - mounts
+      - rule_1.1.18
+      - rule_1.1.19
+      - rule_1.1.20
+
+- name: "1.1.21 | PATCH | Ensure sticky bit is set on all world-writable directories"
+  shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
+  changed_when: false
+  failed_when: false
+  when:
+      - rule_1_1_21
+  tags:
+      - skip_ansible_lint
+      - level1-server
+      - level1-workstation
+      - automated
+      - patch
+      - stickybits
+      - permissons
+      - rule_1.1.21
+
+- name: "1.1.22 | PATCH | Disable Automounting"
+  service:
+      name: autofs
+      enabled: false
+  when:
+      - not allow_autofs
+      - "'autofs' in ansible_facts.packages"
+      - rule_1_1_22
+  tags:
+      - level1-server
+      - level2-workstation
+      - automated
+      - patch
+      - mounts
+      - automounting
+      - rule_1.1.22
+
+- name: "1.1.23 | PATCH | Disable USB Storage"
+  block:
+      - name: "1.1.23 | PATCH | Disable USB Storage | Edit modprobe config"
+        lineinfile:
+            path: /etc/modprobe.d/CIS.conf
+            regexp: "^(#)?install usb-storage(\\s|$)"
+            line: "install usb-storage /bin/true"
+            create: true
+            owner: root
+            group: root
+            mode: 0600
+
+      - name: "1.1.23 | PATCH | Disable USB Storage | | blacklist"
+        lineinfile:
+            path: /etc/modprobe.d/blacklist.conf
+            regexp: "^(#)?blacklist usb-storage(\\s|$)"
+            line: "blacklist usb-storage"
+            create: true
+            mode: 0600
+
+      - name: "1.1.23 | PATCH | Disable USB Storage | Edit modprobe config"
+        modprobe:
+            name: usb-storage
+            state: absent
+  when:
+      - rule_1_1_23
+  tags:
+      - level1-server
+      - level2-workstation
+      - automated
+      - patch
+      - mounts
+      - removable_storage
+      - rule_1.1.23
