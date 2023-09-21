@@ -395,8 +395,6 @@ time_synchronization_servers:
     - 172.16.11.1
     - 172.16.11.2
 
-
-
 chrony_server_options: "iburst"
 
 ## Section3 vars
@@ -422,9 +420,20 @@ nft_tables_tablename: filter
 
 nft_tables_autochaincreate: true
 
-# Warning Banner Content (issue, issue.net, motd)
-warning_banner: |
-    Authorized uses only. All activity may be monitored and reported.
+# change to ho or dmz or drc or test
+environments: test
+
+# Warning Banner Content (issue, issue.net)
+cis_warning_banner: |
+    
+        Warning :
+        =========
+        Information Security Begins with YOU
+        --------------------------------------------------
+        • This is a controlled access application and only authorized users are permitted.
+        • If you are not authorized to access this service, please EXIT now. Unauthorized users may be subject to legal prosecution.
+        • Controlling to use or access this applications, the user signifies that they are an authorized user and consents to monitoring.
+        --------------------------------------------------
 # End Banner
 
 ## Section4 vars
