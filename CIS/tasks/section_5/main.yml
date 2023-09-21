@@ -10,17 +10,17 @@
   when:
       - "'openssh-server' in ansible_facts.packages"
 
-- name: "SECTION | 5.3 | Configure privilege escalation"
+- name: "SECTION | 5.3 | Configure authselect"
   import_tasks: cis_5.3.x.yml
 
-- name: "SECTION | 5.4 | Configure authselect"
+- name: "SECTION | 5.4 | Configure PAM "
   import_tasks: cis_5.4.x.yml
 
-- name: "SECTION | 5.5 | Configure PAM "
+- name: "SECTION | 5.5.1.x | Shadow Password Suite Parameters"
+  import_tasks: cis_5.5.1.x.yml
+
+- name: "SECTION | 5.5.x | Misc. User Account Settings"
   import_tasks: cis_5.5.x.yml
 
-- name: "SECTION | 5.6.1.x | Shadow Password Suite Parameters"
-  import_tasks: cis_5.6.1.x.yml
-
-- name: "SECTION | 5.6.x | Misc. User Account Settings"
-  import_tasks: cis_5.6.x.yml
+- name: "SECTION | 5.8 | Configure privilege escalation"
+  import_tasks: cis_5.8.x.yml
