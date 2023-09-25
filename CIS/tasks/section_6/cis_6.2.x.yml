@@ -453,7 +453,7 @@
         stat:
             path: "{{ item }}"
         register: cis_6_2_19_audit
-        with_items: "{{ passwd | selectattr('uid', '>=', rheluid_interactive_uid_start | int ) | selectattr('uid', '<=', rheluid_interactive_uid_stop | int ) | map(attribute='dir') | list }}"
+        with_items: "{{ passwd | selectattr('uid', '>=', uid_interactive_uid_start | int ) | selectattr('uid', '<=', uid_interactive_uid_stop | int ) | map(attribute='dir') | list }}"
 
       - name: "6.2.19 | AUDIT | Ensure all users' home directories exist"
         command: find -H {{ item.0 | quote }} -not -type l -perm /027
