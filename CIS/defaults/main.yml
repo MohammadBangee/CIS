@@ -279,7 +279,7 @@ avahi_server: false
 bind: false
 cups_server: false
 dhcp_server: false
-openldap-servers: false
+openldap_servers: false
 dns_server: false
 dovecot_cyrus_server: false
 ftp_server: false
