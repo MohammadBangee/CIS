@@ -19,7 +19,7 @@
   when:
       - firewall == "nftables"
 
-- name: "SECTION | 3.4.6.x | Disable IPv6"
-  import_tasks: cis_3.4.6.x.yml
+- name: "SECTION | 3.6.x | Disable IPv6"
+  import_tasks: cis_3.6.x.yml
   when:
       - not ipv6_required
