@@ -125,7 +125,7 @@
       - name: "6.2.7 | AUDIT | Ensure users' home directories permissions are 750 or more restrictive"
         stat:
             path: "{{ item }}"
-        with_items: "{{ passwd | selectattr('uid', '>=', rhel8uid_interactive_uid_start | int) | selectattr('uid', '<=', rhel8uid_interactive_uid_stop | int) | map(attribute='dir') | list }}"
+        with_items: "{{ passwd | selectattr('uid', '>=', uid_interactive_uid_start | int) | selectattr('uid', '<=', uid_interactive_uid_stop | int) | map(attribute='dir') | list }}"
         register: cis_6_2_7_audit
 
       - name: "6.2.7 | AUDIT | Ensure users' home directories permissions are 750 or more restrictive"
@@ -193,7 +193,7 @@
   loop_control:
       label: "{{ passwd_label }}"
   when:
-      - item.uid >= rhel8uid_interactive_uid_start|int
+      - item.uid >= uid_interactive_uid_start|int
       - item.id != 'nobody'
       - item.dir != '/dev/null'
       - rule_6_2_8
