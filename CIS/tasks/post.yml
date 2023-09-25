@@ -2,7 +2,7 @@
 # Post tasks
 
 - name: POST | Perform DNF package cleanup
-  dnf:
+  yum:
       autoremove: true
   changed_when: false
 
