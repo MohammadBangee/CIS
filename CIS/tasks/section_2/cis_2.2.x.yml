@@ -206,7 +206,7 @@
       name: openldap-servers
       state: absent
   when:
-      - not openldap-servers
+      - not openldap_servers
       - "'openldap-servers' in ansible_facts.packages"
       - rule_2_2_14
   tags:
