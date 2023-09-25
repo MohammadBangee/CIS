@@ -459,6 +459,8 @@ ssh_maxsessions: 10
 
 authselect_custom_profile_create: false
 
+authselect_custom_profile_select: false
+
 sudolog_location: "/var/log/sudo.log"
 
 sudo_timestamp_timeout: 15
