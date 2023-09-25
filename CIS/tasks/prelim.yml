@@ -1,12 +1,21 @@
 ---
 # Preliminary tasks that should always be run
 
-- name: Add the required packages
-  package:
-      name:
-          - python3-libselinux
-          - python3-rpm
-      state: present
+# - name: Add the required packages on RHEL 8/9
+#   package:
+#       name:
+#           - python3-libselinux
+#           - python3-rpm
+#       state: present
+#   when: 
+
+# - name: Add the required packages on RHEL 8/9
+#   package:
+#       name:
+#           - python36-libselinux
+#           - python36-rpm
+#       state: present
+#   when: 
 
 - name: Gather the package facts before prelim
   package_facts:
