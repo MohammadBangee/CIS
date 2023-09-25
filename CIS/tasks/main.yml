@@ -2,8 +2,7 @@
 
 - name: Check OS version and family
   assert:
-      that: ansible_distribution_major_version is version_compare('8', '==') or ansible_distribution_major_version is version_compare('9', '==')
-    #   ansible_distribution_major_version | version_compare('7', '==') or ansible_distribution_major_version | version_compare('9', '==')
+      that: ansible_distribution_major_version is version_compare('8', '==') or ansible_distribution_major_version is version_compare('9', '==') or ansible_distribution_major_version is version_compare('7', '==')
       fail_msg: "This role can only be run against Supported OSs. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
       success_msg: "This role is running against a supported OS {{ ansible_distribution }} {{ ansible_distribution_major_version }}"
   when:
