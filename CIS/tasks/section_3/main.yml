@@ -18,6 +18,7 @@
   import_tasks: cis_3.4.3.x.yml
   when:
       - firewall == "nftables"
+      - ansible_distribution_major_version in ['8', '9']
 
 - name: "SECTION | 3.6.x | Disable IPv6"
   import_tasks: cis_3.6.x.yml
