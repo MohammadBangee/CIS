@@ -22,8 +22,6 @@
         modprobe:
             name: cramfs
             state: absent
-        when:
-            - not system_is_container
   when:
       - rule_1_1_1_1
   tags:
@@ -56,8 +54,6 @@
         modprobe:
             name: squashfs
             state: absent
-        when:
-            - not system_is_container
   when:
       - rule_1_1_1_3
   tags:
@@ -90,8 +86,6 @@
         modprobe:
             name: udf
             state: absent
-        when:
-            - not system_is_container
   when:
       - rule_1_1_1_4
   tags:

@@ -1,6 +1,3 @@
-## metadata for Audit benchmark
-benchmark_version: '2.0.0'
-
 # Set if pre version 8.2
 is_pre82_release: {% if ansible_distribution_version >= "8.2" %}false{% else %}true{% endif %}
 
@@ -29,92 +26,81 @@ legacy_boot: {{ legacy_boot }}
 {% endif %}
 
 set_boot_pass: {{ set_boot_pass }}
-# These variables correspond with the CIS rule IDs or paragraph numbers defined in
-# the CIS benchmark documents.
-# PLEASE NOTE: These work in coordination with the section # group variables and tags.
-# You must enable an entire section in order for the variables below to take effect.
+
 # Section 1 rules
 rule_1_1_1_1: {{ rule_1_1_1_1 }}
-rule_1_1_1_2: {{ rule_1_1_1_2 }}
 rule_1_1_1_3: {{ rule_1_1_1_3 }}
-rule_1_1_2_1: {{ rule_1_1_2_1 }}
-rule_1_1_2_2: {{ rule_1_1_2_2 }}
-rule_1_1_2_3: {{ rule_1_1_2_3 }}
-rule_1_1_2_4: {{ rule_1_1_2_4 }}
-rule_1_1_3_1: {{ rule_1_1_3_1 }}
-rule_1_1_3_2: {{ rule_1_1_3_2 }}
-rule_1_1_3_3: {{ rule_1_1_3_3 }}
-rule_1_1_3_4: {{ rule_1_1_3_4 }}
-rule_1_1_4_1: {{ rule_1_1_4_1 }}
-rule_1_1_4_2: {{ rule_1_1_4_2 }}
-rule_1_1_4_3: {{ rule_1_1_4_3 }}
-rule_1_1_4_4: {{ rule_1_1_4_4 }}
-rule_1_1_5_1: {{ rule_1_1_5_1 }}
-rule_1_1_5_2: {{ rule_1_1_5_2 }}
-rule_1_1_5_3: {{ rule_1_1_5_3 }}
-rule_1_1_5_4: {{ rule_1_1_5_4 }}
-rule_1_1_6_1: {{ rule_1_1_6_1 }}
-rule_1_1_6_2: {{ rule_1_1_6_2 }}
-rule_1_1_6_3: {{ rule_1_1_6_3 }}
-rule_1_1_6_4: {{ rule_1_1_6_4 }}
-rule_1_1_7_1: {{ rule_1_1_7_1 }}
-rule_1_1_7_2: {{ rule_1_1_7_2 }}
-rule_1_1_7_3: {{ rule_1_1_7_3 }}
-rule_1_1_7_4: {{ rule_1_1_7_4 }}
-rule_1_1_7_5: {{ rule_1_1_7_5 }}
-rule_1_1_8_1: {{ rule_1_1_8_1 }}
-rule_1_1_8_2: {{ rule_1_1_8_2 }}
-rule_1_1_8_3: {{ rule_1_1_8_3 }}
-rule_1_1_9: {{ rule_1_1_9 }}
-rule_1_1_10: {{ rule_1_1_10 }}
-
+rule_1_1_1_4: {{ rule_1_1_1_4 }}
+rule_1_1_23_1: {{ rule_1_1_23_1 }}
+rule_1_1_23_2: {{ rule_1_1_23_2 }}
+rule_1_1_23_3: {{ rule_1_1_23_3 }}
+rule_1_1_23_4: {{ rule_1_1_23_4 }}
+rule_1_1_24_1: {{ rule_1_1_24_1 }}
+rule_1_1_24_2: {{ rule_1_1_24_2 }}
+rule_1_1_24_3: {{ rule_1_1_24_3 }}
+rule_1_1_24_4: {{ rule_1_1_24_4 }}
+rule_1_1_25_1: {{ rule_1_1_25_1 }}
+rule_1_1_25_2: {{ rule_1_1_25_2 }}
+rule_1_1_25_3: {{ rule_1_1_25_3 }}
+rule_1_1_25_4: {{ rule_1_1_25_4 }}
+rule_1_1_26_1: {{ rule_1_1_26_1 }}
+rule_1_1_26_2: {{ rule_1_1_26_2 }}
+rule_1_1_26_3: {{ rule_1_1_26_3 }}
+rule_1_1_26_4: {{ rule_1_1_26_4 }}
+rule_1_1_27_1: {{ rule_1_1_27_1 }}
+rule_1_1_27_2: {{ rule_1_1_27_2 }}
+rule_1_1_27_3: {{ rule_1_1_27_3 }}
+rule_1_1_27_4: {{ rule_1_1_27_4 }}
+rule_1_1_28_1: {{ rule_1_1_28_1 }}
+rule_1_1_28_2: {{ rule_1_1_28_2 }}
+rule_1_1_28_3: {{ rule_1_1_28_3 }}
+rule_1_1_28_4: {{ rule_1_1_28_4 }}
+rule_1_1_28_5: {{ rule_1_1_28_5 }}
+rule_1_1_29_1: {{ rule_1_1_29_1 }}
+rule_1_1_29_2: {{ rule_1_1_29_2 }}
+rule_1_1_29_3: {{ rule_1_1_29_3 }}
+rule_1_1_18: {{ rule_1_1_18 }}
+rule_1_1_19: {{ rule_1_1_19 }}
+rule_1_1_20: {{ rule_1_1_20 }}
+rule_1_1_21: {{ rule_1_1_21 }}
+rule_1_1_22: {{ rule_1_1_22 }}
+rule_1_1_23: {{ rule_1_1_23 }}
 rule_1_2_1: {% if ansible_distribution == "RedHat" %}True{% else %}False{% endif %}  # Only run if Redhat and Subscribed
 rule_1_2_2: {{ rule_1_2_2 }}
 rule_1_2_3: {{ rule_1_2_3 }}
 rule_1_2_4: {{ rule_1_2_4 }}
-
-rule_1_3_1: {{ rule_1_3_1 }}
-rule_1_3_2: {{ rule_1_3_2 }}
-
+rule_1_2_5: {{ rule_1_2_5 }}
 rule_1_4_1: {{ rule_1_4_1 }}
 rule_1_4_2: {{ rule_1_4_2 }}
-rule_1_4_3: {{ rule_1_4_3 }}
-
-rule_1_5_1: {{ rule_1_5_1 }}
-rule_1_5_2: {{ rule_1_5_2 }}
-rule_1_5_3: {{ rule_1_5_3 }}
-
-rule_1_6_1_1: {{ rule_1_6_1_1 }}
-rule_1_6_1_2: {{ rule_1_6_1_2 }}
-rule_1_6_1_3: {{ rule_1_6_1_3 }}
-rule_1_6_1_4: {{ rule_1_6_1_4 }}
-rule_1_6_1_5: {{ rule_1_6_1_5 }}
-rule_1_6_1_6: {{ rule_1_6_1_6 }}
-rule_1_6_1_7: {{ rule_1_6_1_7 }}
-rule_1_6_1_8: {{ rule_1_6_1_8 }}
-
-rule_1_7_1: {{ rule_1_7_1 }}
-rule_1_7_2: {{ rule_1_7_2 }}
-rule_1_7_3: {{ rule_1_7_3 }}
-rule_1_7_4: {{ rule_1_7_4 }}
-rule_1_7_5: {{ rule_1_7_5 }}
-rule_1_7_6: {{ rule_1_7_6 }}
-
+rule_1_5_4: {{ rule_1_5_4 }}
+rule_1_6_2: {{ rule_1_6_2 }}
+rule_1_6_3: {{ rule_1_6_3 }}
+rule_1_6_4: {{ rule_1_6_4 }}
+rule_1_7_1_1: {{ rule_1_7_1_1 }}
+rule_1_7_1_2: {{ rule_1_7_1_2 }}
+rule_1_7_1_3: {{ rule_1_7_1_3 }}
+rule_1_7_1_4: {{ rule_1_7_1_4 }}
+rule_1_7_1_5: {{ rule_1_7_1_5 }}
+rule_1_7_1_6: {{ rule_1_7_1_6 }}
+rule_1_7_1_7: {{ rule_1_7_1_7 }}
+rule_1_7_1_8: {{ rule_1_7_1_8 }}
 rule_1_8_1: {{ rule_1_8_1 }}
-rule_1_8_2: {{ rule_1_8_2 }}
 rule_1_8_3: {{ rule_1_8_3 }}
 rule_1_8_4: {{ rule_1_8_4 }}
 rule_1_8_5: {{ rule_1_8_5 }}
-
+rule_1_8_6: {{ rule_1_8_6 }}
 rule_1_9: {{ rule_1_9 }}
 rule_1_10: {{ rule_1_10 }}
+rule_1_12_1: {{ rule_1_12_1 }}
+rule_1_12_2: {{ rule_1_12_2 }}
+rule_1_12_3: {{ rule_1_12_3 }}
+rule_1_12_4: {{ rule_1_12_4 }}
+rule_1_12_5: {{ rule_1_12_5 }}
 
 # section 2 rules
-rule_2_1_1: {{ rule_2_1_1 }}
-rule_2_1_2: {{ rule_2_1_2 }}
-
 rule_2_2_1: {{ rule_2_2_1 }}
-rule_2_2_2: {{ rule_2_2_2 }}
+rule_2_2_1_1: {{ rule_2_2_1_1 }}
+rule_2_2_1_2: {{ rule_2_2_1_2 }}
 rule_2_2_3: {{ rule_2_2_3 }}
 rule_2_2_4: {{ rule_2_2_4 }}
 rule_2_2_5: {{ rule_2_2_5 }}
@@ -131,130 +117,63 @@ rule_2_2_15: {{ rule_2_2_15 }}
 rule_2_2_16: {{ rule_2_2_16 }}
 rule_2_2_17: {{ rule_2_2_17 }}
 rule_2_2_18: {{ rule_2_2_18 }}
-rule_2_2_19: {{ rule_2_2_19 }}
-rule_2_2_20: {{ rule_2_2_20 }}
-
 rule_2_3_1: {{ rule_2_3_1 }}
 rule_2_3_2: {{ rule_2_3_2 }}
 rule_2_3_3: {{ rule_2_3_3 }}
 rule_2_3_4: {{ rule_2_3_4 }}
 rule_2_3_5: {{ rule_2_3_5 }}
-rule_2_3_6: {{ rule_2_3_6 }}
-
-rule_2_4: {{ rule_2_4 }}
 
 # Section 3 rules
 rule_3_1_1: {{ rule_3_1_1 }}
 rule_3_1_2: {{ rule_3_1_2 }}
-rule_3_1_3: {{ rule_3_1_3 }}
-rule_3_1_4: {{ rule_3_1_4 }}
-
 rule_3_2_1: {{ rule_3_2_1 }}
 rule_3_2_2: {{ rule_3_2_2 }}
-
+rule_3_2_1: {{ rule_3_2_1 }}
+rule_3_2_2: {{ rule_3_2_2 }}
+rule_3_2_3: {{ rule_3_2_3 }}
+rule_3_2_4: {{ rule_3_2_4 }}
+rule_3_2_5: {{ rule_3_2_5 }}
+rule_3_2_6: {{ rule_3_2_6 }}
+rule_3_2_7: {{ rule_3_2_7 }}
+rule_3_2_8: {{ rule_3_2_8 }}
+rule_3_2_9: {{ rule_3_2_9 }}
 rule_3_3_1: {{ rule_3_3_1 }}
 rule_3_3_2: {{ rule_3_3_2 }}
 rule_3_3_3: {{ rule_3_3_3 }}
 rule_3_3_4: {{ rule_3_3_4 }}
-rule_3_3_5: {{ rule_3_3_5 }}
-rule_3_3_6: {{ rule_3_3_6 }}
-rule_3_3_7: {{ rule_3_3_7 }}
-rule_3_3_8: {{ rule_3_3_8 }}
-rule_3_3_9: {{ rule_3_3_9 }}
-
 rule_3_4_1_1: {{ rule_3_4_1_1 }}
-rule_3_4_1_2: {{ rule_3_4_1_2 }}
-rule_3_4_1_3: {{ rule_3_4_1_3 }}
-rule_3_4_1_4: {{ rule_3_4_1_4 }}
-rule_3_4_1_5: {{ rule_3_4_1_5 }}
-rule_3_4_1_6: {{ rule_3_4_1_6 }}
-rule_3_4_1_7: {{ rule_3_4_1_7 }}
-
 rule_3_4_2_1: {{ rule_3_4_2_1 }}
 rule_3_4_2_2: {{ rule_3_4_2_2 }}
 rule_3_4_2_3: {{ rule_3_4_2_3 }}
 rule_3_4_2_4: {{ rule_3_4_2_4 }}
 rule_3_4_2_5: {{ rule_3_4_2_5 }}
 rule_3_4_2_6: {{ rule_3_4_2_6 }}
-rule_3_4_2_7: {{ rule_3_4_2_7 }}
-rule_3_4_2_8: {{ rule_3_4_2_8 }}
-rule_3_4_2_9: {{ rule_3_4_2_9 }}
-rule_3_4_2_10: {{ rule_3_4_2_10 }}
-rule_3_4_2_11: {{ rule_3_4_2_11 }}
-
-rule_3_4_3_1_1: {{ rule_3_4_3_1_1 }}
-rule_3_4_3_1_2: {{ rule_3_4_3_1_2 }}
-rule_3_4_3_1_3: {{ rule_3_4_3_1_3 }}
-
-rule_3_4_3_2_1: {{ rule_3_4_3_2_1 }}
-rule_3_4_3_2_2: {{ rule_3_4_3_2_2 }}
-rule_3_4_3_2_3: {{ rule_3_4_3_2_3 }}
-rule_3_4_3_2_4: {{ rule_3_4_3_2_4 }}
-rule_3_4_3_2_5: {{ rule_3_4_3_2_5 }}
-rule_3_4_3_2_6: {{ rule_3_4_3_2_6 }}
-
-rule_3_4_3_3_1: {{ rule_3_4_3_3_1 }}
-rule_3_4_3_3_2: {{ rule_3_4_3_3_2 }}
-rule_3_4_3_3_3: {{ rule_3_4_3_3_3 }}
-rule_3_4_3_3_4: {{ rule_3_4_3_3_4 }}
-rule_3_4_3_3_5: {{ rule_3_4_3_3_5 }}
-rule_3_4_3_3_6: {{ rule_3_4_3_3_6 }}
 
 # Section 4 rules
 rule_4_1_1_1: {{ rule_4_1_1_1 }}
 rule_4_1_1_2: {{ rule_4_1_1_2 }}
 rule_4_1_1_3: {{ rule_4_1_1_3 }}
 rule_4_1_1_4: {{ rule_4_1_1_4 }}
-
 rule_4_1_2_1: {{ rule_4_1_2_1 }}
 rule_4_1_2_2: {{ rule_4_1_2_2 }}
 rule_4_1_2_3: {{ rule_4_1_2_3 }}
-
-rule_4_1_3_1: {{ rule_4_1_3_1 }}
-rule_4_1_3_2: {{ rule_4_1_3_2 }}
-rule_4_1_3_3: {{ rule_4_1_3_3 }}
-rule_4_1_3_4: {{ rule_4_1_3_4 }}
-rule_4_1_3_5: {{ rule_4_1_3_5 }}
-rule_4_1_3_6: {{ rule_4_1_3_6 }}
-rule_4_1_3_7: {{ rule_4_1_3_7 }}
-rule_4_1_3_8: {{ rule_4_1_3_8 }}
-rule_4_1_3_9: {{ rule_4_1_3_9 }}
-rule_4_1_3_10: {{ rule_4_1_3_10 }}
-rule_4_1_3_11: {{ rule_4_1_3_11 }}
-rule_4_1_3_12: {{ rule_4_1_3_12 }}
-rule_4_1_3_13: {{ rule_4_1_3_13 }}
-rule_4_1_3_14: {{ rule_4_1_3_14 }}
-rule_4_1_3_15: {{ rule_4_1_3_15 }}
-rule_4_1_3_16: {{ rule_4_1_3_16 }}
-rule_4_1_3_17: {{ rule_4_1_3_17 }}
-rule_4_1_3_18: {{ rule_4_1_3_18 }}
-rule_4_1_3_19: {{ rule_4_1_3_19 }}
-rule_4_1_3_20: {{ rule_4_1_3_20 }}
-rule_4_1_3_21: {{ rule_4_1_3_21 }}
-
-rule_4_2_1_1: {{ rule_4_2_1_1 }}
-rule_4_2_1_2: {{ rule_4_2_1_2 }}
-rule_4_2_1_3: {{ rule_4_2_1_3 }}
-rule_4_2_1_4: {{ rule_4_2_1_4 }}
-rule_4_2_1_5: {{ rule_4_2_1_5 }}
-rule_4_2_1_6: {{ rule_4_2_1_6 }}
-rule_4_2_1_7: {{ rule_4_2_1_7 }}
-
-rule_4_2_2_1_1: {{ rule_4_2_2_1_1 }}
-rule_4_2_2_1_2: {{ rule_4_2_2_1_2 }}
-rule_4_2_2_1_3: {{ rule_4_2_2_1_3 }}
-rule_4_2_2_1_4: {{ rule_4_2_2_1_4 }}
-
-rule_4_2_2_2: {{ rule_4_2_2_2 }}
-rule_4_2_2_3: {{ rule_4_2_2_3 }}
-rule_4_2_2_4: {{ rule_4_2_2_4 }}
-rule_4_2_2_5: {{ rule_4_2_2_5 }}
-rule_4_2_2_6: {{ rule_4_2_2_6 }}
-rule_4_2_2_7: {{ rule_4_2_2_7 }}
-
-rule_4_2_3: {{ rule_4_2_3 }}
-
-rule_4_3: {{ rule_4_3 }}
+rule_4_1_18_1: {{ rule_4_1_18_1 }}
+rule_4_1_18_2: {{ rule_4_1_18_2 }}
+rule_4_1_18_3: {{ rule_4_1_18_3 }}
+rule_4_1_18_4: {{ rule_4_1_18_4 }}
+rule_4_1_18_5: {{ rule_4_1_18_5 }}
+rule_4_1_18_6: {{ rule_4_1_18_6 }}
+rule_4_1_18_7: {{ rule_4_1_18_7 }}
+rule_4_1_18_8: {{ rule_4_1_18_8 }}
+rule_4_1_18_9: {{ rule_4_1_18_9 }}
+rule_4_1_18_10: {{ rule_4_1_18_10 }}
+rule_4_1_18_11: {{ rule_4_1_18_11 }}
+rule_4_1_18_12: {{ rule_4_1_18_12 }}
+rule_4_1_18_13: {{ rule_4_1_18_13 }}
+rule_4_1_18_14: {{ rule_4_1_18_14 }}
+rule_4_1_18_15: {{ rule_4_1_18_15 }}
+rule_4_1_18_16: {{ rule_4_1_18_16 }}
+rule_4_1_18_17: {{ rule_4_1_18_17 }}
 
 # Section 5
 rule_5_1_1: {{ rule_5_1_1 }}
@@ -266,7 +185,6 @@ rule_5_1_6: {{ rule_5_1_6 }}
 rule_5_1_7: {{ rule_5_1_7 }}
 rule_5_1_8: {{ rule_5_1_8 }}
 rule_5_1_9: {{ rule_5_1_9 }}
-
 rule_5_2_1: {{ rule_5_2_1 }}
 rule_5_2_2: {{ rule_5_2_2 }}
 rule_5_2_3: {{ rule_5_2_3 }}
@@ -276,7 +194,6 @@ rule_5_2_6: {{ rule_5_2_6 }}
 rule_5_2_7: {{ rule_5_2_7 }}
 rule_5_2_8: {{ rule_5_2_8 }}
 rule_5_2_9: {{ rule_5_2_9 }}
-rule_5_2_10: {{ rule_5_2_10 }}
 rule_5_2_11: {{ rule_5_2_11 }}
 rule_5_2_12: {{ rule_5_2_12 }}
 rule_5_2_13: {{ rule_5_2_13 }}
@@ -287,37 +204,31 @@ rule_5_2_17: {{ rule_5_2_17 }}
 rule_5_2_18: {{ rule_5_2_18 }}
 rule_5_2_19: {{ rule_5_2_19 }}
 rule_5_2_20: {{ rule_5_2_20 }}
-
-rule_5_3_1: {{ rule_5_3_1 }}
-rule_5_3_2: {{ rule_5_3_2 }}
 rule_5_3_3: {{ rule_5_3_3 }}
 rule_5_3_4: {{ rule_5_3_4 }}
-rule_5_3_5: {{ rule_5_3_5 }}
-rule_5_3_6: {{ rule_5_3_6 }}
-rule_5_3_7: {{ rule_5_3_7 }}
-
 rule_5_4_1: {{ rule_5_4_1 }}
 rule_5_4_2: {{ rule_5_4_2 }}
-
-rule_5_5_1: {{ rule_5_5_1 }}
+rule_5_4_3: {{ rule_5_4_3 }}
+rule_5_4_4: {{ rule_5_4_4 }}
+rule_5_5_1_1: {{ rule_5_5_1_1 }}
+rule_5_5_1_2: {{ rule_5_5_1_2 }}
+rule_5_5_1_3: {{ rule_5_5_1_3 }}
+rule_5_5_1_4: {{ rule_5_5_1_4 }}
+rule_5_5_1_5: {{ rule_5_5_1_5 }}
 rule_5_5_2: {{ rule_5_5_2 }}
 rule_5_5_3: {{ rule_5_5_3 }}
 rule_5_5_4: {{ rule_5_5_4 }}
-
-rule_5_6_1_1: {{ rule_5_6_1_1 }}
-rule_5_6_1_2: {{ rule_5_6_1_2 }}
-rule_5_6_1_3: {{ rule_5_6_1_3 }}
-rule_5_6_1_4: {{ rule_5_6_1_4 }}
-rule_5_6_1_5: {{ rule_5_6_1_5 }}
-
-rule_5_6_2: {{ rule_5_6_2 }}
-rule_5_6_3: {{ rule_5_6_3 }}
-rule_5_6_4: {{ rule_5_6_4 }}
-rule_5_6_5: {{ rule_5_6_5 }}
+rule_5_5_5: {{ rule_5_5_5 }}
+rule_5_8_1: {{ rule_5_8_1 }}
+rule_5_8_2: {{ rule_5_8_2 }}
+rule_5_8_3: {{ rule_5_8_3 }}
+rule_5_8_4: {{ rule_5_8_4 }}
+rule_5_8_5: {{ rule_5_8_5 }}
+rule_5_8_6: {{ rule_5_8_6 }}
+rule_5_8_7: {{ rule_5_8_7 }}
 
 # Section 6
 rule_6_1_1: {{ rule_6_1_1 }}
-rule_6_1_2: {{ rule_6_1_2 }}
 rule_6_1_3: {{ rule_6_1_3 }}
 rule_6_1_4: {{ rule_6_1_4 }}
 rule_6_1_5: {{ rule_6_1_5 }}
@@ -331,10 +242,8 @@ rule_6_1_12: {{ rule_6_1_12 }}
 rule_6_1_13: {{ rule_6_1_13 }}
 rule_6_1_14: {{ rule_6_1_14 }}
 rule_6_1_15: {{ rule_6_1_15 }}
-
 rule_6_2_1: {{ rule_6_2_1 }}
 rule_6_2_2: {{ rule_6_2_2 }}
-rule_6_2_3: {{ rule_6_2_3 }}
 rule_6_2_4: {{ rule_6_2_4 }}
 rule_6_2_5: {{ rule_6_2_5 }}
 rule_6_2_6: {{ rule_6_2_6 }}
@@ -348,11 +257,16 @@ rule_6_2_13: {{ rule_6_2_13 }}
 rule_6_2_14: {{ rule_6_2_14 }}
 rule_6_2_15: {{ rule_6_2_15 }}
 rule_6_2_16: {{ rule_6_2_16 }}
+rule_6_2_17: {{ rule_6_2_17 }}
+rule_6_2_18: {{ rule_6_2_18 }}
+rule_6_2_19: {{ rule_6_2_19 }}
 
 # Service configuration booleans set true to keep service
 avahi_server: {{ avahi_server }}
+bind: {{ bind }}
 cups_server: {{ cups_server }}
 dhcp_server: {{ dhcp_server }}
+openldap-servers: {{ openldap-servers }}
 dns_server: {{ dns_server }}
 dovecot_cyrus_server: {{ dovecot_cyrus_server }}
 ftp_server: {{ ftp_server }}
@@ -367,6 +281,7 @@ rsync_server: {{ rsync_server }}
 samba_server: {{ samba_server }}
 squid_server: {{ squid_server }}
 telnet_server: {{ telnet_server }}
+xinetd_server: {{ xinetd_server }}
 
 allow_autofs: {{ allow_autofs }}
 

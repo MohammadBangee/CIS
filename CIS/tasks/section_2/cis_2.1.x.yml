@@ -21,7 +21,6 @@
       state: present
   when:
       - rule_2_1_1_1
-      - not system_is_container
   tags:
       - level1-server
       - level1-workstation
@@ -49,7 +48,6 @@
   when:
       - time_synchronization == "chrony"
       - rule_2_2_1_2
-      - not system_is_container
   tags:
       - level1-server
       - level1-workstation

@@ -1,8 +1,5 @@
 ---
 
-system_is_container: false
-container_vars_file: is_container.yml
-
 os_check: true
 system_is_ec2: false
 

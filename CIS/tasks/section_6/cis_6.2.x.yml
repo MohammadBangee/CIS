@@ -165,8 +165,6 @@
             recursive: true
             etype: "{{ item.1.etype }}"
             permissions: "{{ item.1.mode }}"
-        when:
-            - not system_is_container
         with_nested:
             - "{{ (ansible_check_mode | ternary(cis_6_2_7_patch_audit, cis_6_2_7_patch)).results |
               rejectattr('skipped', 'defined') | map(attribute='item') | map('first') | list }}"
@@ -496,8 +494,6 @@
             follow: "{{ 6_2_19_follow_home_symlinks }}"
             etype: "{{ item.1.etype }}"
             permissions: "{{ item.1.mode }}"
-        when:
-            - not system_is_container
         with_nested:
             - "{{ (ansible_check_mode | ternary(cis_6_2_19_patch_audit, cis_6_2_19_patch)).results |
               rejectattr('skipped', 'defined') | map(attribute='item') | map('first') | list }}"

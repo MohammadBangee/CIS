@@ -7,8 +7,6 @@
       value: '1'
       sysctl_set: true
   ignore_errors: true  # noqa ignore-errors
-  when:
-      - not system_is_container
   tags:
       - skip_ansible_lint
 
@@ -18,8 +16,6 @@
       value: '1'
       sysctl_set: true
   ignore_errors: true  # noqa ignore-errors
-  when:
-      - not system_is_container
 
 - name: systemd restart tmp.mount
   systemd:
