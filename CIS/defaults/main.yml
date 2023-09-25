@@ -502,6 +502,6 @@ no_world_write_adjust: true
 passwd_label: "{{ (this_item | default(item)).id }}: {{ (this_item | default(item)).dir }}"
 
 
-cis_6_2_9_follow_home_symlinks: false
+cis_6_2_19_follow_home_symlinks: false
 
 dotperm_ansiblemanaged: true
