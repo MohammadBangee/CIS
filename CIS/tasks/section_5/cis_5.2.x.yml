@@ -347,7 +347,7 @@
         failed_when: ( crypto_policy_override.rc not in [ 0, 1 ] )
         changed_when: false
         register: crypto_policy_override
-
+        
       - name: "5.2.20 | PATCH | Ensure system-wide crypto policy is not over-ridden"
         shell: sed -ri "s/^\s*(CRYPTO_POLICY\s*=.*)$/# \1/" /etc/sysconfig/sshd
         notify: restart sshd
@@ -355,6 +355,7 @@
             - crypto_policy_override.stdout | length > 0
   when:
       - rule_5_2_20
+      - ansible_distribution_major_version in ['8', '9']
   tags:
       - level1-server
       - level1-workstation

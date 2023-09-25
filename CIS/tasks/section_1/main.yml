@@ -54,6 +54,7 @@
   import_tasks: cis_1.10.yml
   when:
   - not system_is_ec2
+  - ansible_distribution_major_version in ['8', '9']
 
 - name: "SECTION | 1.12 | Gnome Display Manager"
   import_tasks: cis_1.12.x.yml

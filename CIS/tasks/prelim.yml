@@ -67,12 +67,14 @@
   package:
       name: crypto-policies-scripts
       state: installed
+  when: ansible_distribution_major_version in ['8', '9']
 
 - name: "PRELIM | Gather system-wide crypto-policy"
   shell: update-crypto-policies --show
   changed_when: false
   check_mode: false
   register: system_wide_crypto_policy
+  when: ansible_distribution_major_version in ['8', '9']
 
 - name: "PRELIM | if systemd coredump"
   stat:

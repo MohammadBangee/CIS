@@ -7,6 +7,7 @@
   notify: change_requires_reboot
   when:
       - rule_1_10
+      - ansible_distribution_major_version in ['8', '9']
       - crypto_policy|string not in system_wide_crypto_policy['stdout']
   tags:
       - level1-server
