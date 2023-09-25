@@ -45,7 +45,7 @@
   when: not selinux_disable
 
 - name: "SECTION | 1.8 | Command Line Warning Banners"
-  import_tasks: cis_1.8.x.yml
+  import_tasks: cis_1.8.1.x.yml
 
 - name: "SECTION | 1.9 | Updates and Patches"
   import_tasks: cis_1.9.yml
